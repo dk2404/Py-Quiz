@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title> JavaScript page  </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="js_style.css">
+  <link rel="stylesheet" type="text/css" href="nav.css">
+  <link rel="stylesheet" type="text/css" href="page.css">
+  <link rel="stylesheet" type="text/css" href="form.css">
+  <script  src="java.js" ></script>
+  <script  src="Ajax.js" ></script>
+ 
+
+</head>
+
+<body>
+<div id="text-color">
+    <div class="img3">
+        
+            <div id="nav" class="navigator">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="{{ url_for('index') }}">Home</a>
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}">Login</a>
+                {% else %}
+                <a href = "{{ url_for('admin_login') }}"> Logout </a>
+                {% else %}
+                <a href = "{{ url_for('logout') }}"> Logout </a>
+                {% endif %}
+                <button class="button1" id="BackgroundCHG">Background</button>
+            </div>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+            <div >
+                <h1> Purpose and Evolution of Javascript </h1>
+                <div class="img_container">
+                    <img class="resize" src="js1.jpg" alt="background">
+                </div>
+                <h2 id="H1"> Introduction </h2>
+
+                <p class="para">
+                    JavaScript is a client-side programming language which helps web developer
+                    to do Web Application Development and make dynamic and interactive web pages by implementing custom client-side scripts.
+                    Developers can also use cross-platform runtime engines like Node. 
+                    js to write server-side code in JavaScript.<br>
+                </p>
+
+                <p class="second para">
+                    Developers can also create web pages which works well across various browsers, platforms, and devices by combining JavaScript, HTML5, and CSS3.
+                    There are many JavaScript Frameworks available in the web market like AngularJS, ReactJS, NodeJS etc. By using these frameworks, you can reduce the amount of time and efforts required for developing JS based sites and apps. 
+                    JavaScript allows the programmers to build large-scale web application easily. It simplifies the whole process of developing large-scale web applications.<a href="#p1"><sup>[1]</sup></a>
+                </p>
+                <script >para();</script>
+            </div>
+
+            <div>
+                <h2 id="H2">Purpose</h2>
+                
+                <p>
+                    Computers were once very slow in executing web developers’ visions for.
+                    This lead to the idea of a programming language that is executed on users’ computers when they access a webpage. 
+                    Anything that has been designed and implemented on web pages running that language would no longer add to the load on hosting servers; instead, it would be a client-side language.
+                    Web pages would become more responsive and less expensive.<a href="#p2"><sup>[2]</sup></a>
+                </p>
+            </div>
+                <h2 id="H3">Evolution</h2>
+        
+                <div class="background1">
+                
+                    <p class="p1">
+                        Javascript is currently being used in more than 94% of websites. That means millions of web developers are using JavaScript for web application development. 
+                        The ease of use and widespread adoption of this programming language is exactly why it continues to become more important to web developers.
+                        Here are just a few of the reasons JavaScript continues to evolve and grow: <a href="#p3"><sup>[3]</sup></a>
+                        
+                    </p>
+            
+                    
+                    <ul>
+                        <li>
+                            <b>The Ubiquity of Web Browsers </b>
+                            -The web is available everywhere and this makes JavaScript more important and more commonplace. Plus, the widespread adoption ensures dynamic content gets displayed the way it was intended
+                        </li>
+                        <li>
+                            <b>JavaScript Has More Applications </b>
+                            -JavaScript is useful for both front and back end web development. By using cross-platform runtime engines to write server-side code, JavaScript has even more applications and increases efficiencies for web developers.</li>
+                        <li>
+                            <b>Browsers Improved Processing Speeds</b>
+                            -Because of improvements in web browsers throughout the years, JavaScript is being processed even faster than ever. This makes it the most practical choice for web developers, because speed is everything. </li>
+                        <li>
+                            <b>Frameworks like jquery Reduce Learning Times  </b>
+                            -Frameworks like jquery make the learning curve much easier for web developers to master JavaScript. Plus, these frameworks make it easier to create highly professional and interactive web applications efficiently.</li>
+                    </ul>
+
+                </div>
+                
+
+        <div>
+            <h2 id="H4">Benefits</h2>
+            <div id="benefit">
+                <h4>Click button to reveal benefits of JS</h4>
+                <button class="button" type="button" onclick="loadDoc()">Benefits</button>
+            </div>
+              
+
+        </div>
+    </div>
+
+        <script>
+        document.getElementById('BackgroundCHG').addEventListener('click', function() {
+        document.body.style.backgroundImage="url('https://cdn.hipwallpaper.com/i/79/69/VmPZ8T.jpg')";
+        document.body.style.backgroundRepeat="no=-repeat";
+        document.getElementById("text-color").style.color="rgb(215, 206, 219)";})
+
+        </script>
+
+    <form  name="myform" method="POST" onsubmit="return false ">
+        <div id="H5" class="container">
+          <h2 style="text-align: center;">Quick Knowledge Check</h2>
+          <hr>
+
+          <label ><b>Enter your email address.</b></label>
+          <input type="text" placeholder="Enter email" name="email" required>
+      
+          <label ><b>Q1.The external JavaScript file must contain the "script" tag.</b></label>
+          <input type="text" placeholder="Enter True/False"  required>
+
+          <label ><b>Q2.JavaScript is the same as Java.</b></label>
+          <input type="text" placeholder="Enter True/False"  required>
+
+          <label><b>Q3.Is JavaScript case-sensitive?.</b></label>
+          <input type="text" placeholder="Enter True/False" required>
+
+      
+          <button type="submit" onclick="window.location.href = 'submit.html';" class="registerbtn">Submit</button>
+        </div>
+        
+      </form>
+
+    
+      
+       <div class="container">
+            <h3><ins><b>Refrences:</b></ins></h3>
+
+            <div id="p1">[1]<a class='one' href="https://webplatform.github.io/docs/concepts/programming/the_purpose_of_javascript/" target="_blank">https://webplatform.github.io/docs/concepts/programming/the_purpose_of_javascript/</a><br></div>
+            <div id="p2">[2]<a class='one' href="https://robogarden.ca/blog/the-purpose-of-javaScript" target="_blank">https://robogarden.ca/blog/the-purpose-of-javaScript</a><br></div>
+            <div id="p3">[3]<a class='one' href="https://www.ignitro.com/blog/the-evolution-of-javascript-why-it-continues-to-be-a-top-choice-for-developers/" target="_blank">https://www.ignitro.com/blog/the-evolution-of-javascript-why-it-continues-to-be-a-top-choice-for-developers/</a><br></div>
+        
+        </div>
+     
+        <div class="pagination">
+            
+            <a href="#">&laquo;</a>
+            <a href="HTML.html">1</a>
+            <a href="css.html">2</a>
+            <a class="active">3</a>
+            <a href="CV.html">4</a>
+            <a href="#">&raquo;</a>
+        </div>
+</div>
+
+</body>
+
+</html>
