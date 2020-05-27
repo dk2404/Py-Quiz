@@ -1,2 +1,3 @@
-FLASK_APP=agile_project2.py
+FLASK_APP = agile_web_flask.py
+FLASK_ENV=development
 FLASK_DEBUG=True
