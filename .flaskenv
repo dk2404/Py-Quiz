@@ -1,0 +1,2 @@
+FLASK_APP=agile_project2.py
+FLASK_DEBUG=True
