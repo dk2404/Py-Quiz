@@ -6,20 +6,16 @@
 <head>
   <title> JavaScript page  </title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="css/js_style.css">
-  <link rel="stylesheet" type="text/css" href="css/nav.css">
-  <link rel="stylesheet" type="text/css" href="css/page.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
   <script  src="js/java.js" ></script>
   <script  src="js/Ajax.js" ></script>
- 
-
 </head>
 
 <body>
 <div id="text-color">
     <div class="img3">
         
-            <div id="nav" class="navigator">
+            <div class="pagination">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a href="{{ url_for('index') }}">Home</a>
                 {% if current_user.is_anonymous %}
