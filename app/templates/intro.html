@@ -4,22 +4,27 @@
 <title>Py-Quiz</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="css/intro.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intro.css') }}">
 </head>
 <body>
 <!-- We use div's in CSS-->
 <!-- Here we are declaring a top navigation bar-->
 <div class="pagination">
     <a class="active">Home</a>
-    <a href="login.html">Login</a>
-    <a href="register.html" >Register</a>
+    {% if current_user.is_anonymous %}
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('register') }}" >Register</a>
+    {% else %}
+    <a href = "{{ url_for('logout') }}"> Logout </a>
+    {% endif %}
+    
     <a href="about.html">About</a>
 </div>
 
 <div class="content">
   
   <h1>Py-Quiz</h1>
-  <img class="img_container1" src="../../images/py.png" alt="adv/">
+  <img class="img_container1" src="{{ url_for('static',filename='images/py.png') }}" alt="adv/">
   <h2 class="header">Python questionnaire to check your proficiency!</h2>
       <!-- here we are declaring a special class to style it accordingly--> 
         <div class="p">Python is a programming language that lets you work more quickly and integrate your systems more effectively.
@@ -54,7 +59,7 @@
         <h2>Sample Questions!</h2>
         <!-- here we are declaring a class to adjust the images as per our requirement-->
           <div>
-            <img class="img_container" src="../../images/cert.png" alt="adv/">
+            <img class="img_container" src="{{ url_for('static',filename='images/cert.png') }}" alt="adv/">
             <div class="alert_container">
               <div class="alert">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
