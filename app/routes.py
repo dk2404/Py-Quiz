@@ -23,7 +23,7 @@ def index():
     return render_template('intro.html', title = 'Home', posts = posts)
 
 
-@app.route('/login')
+@app.route('/login',methods=['GET', 'POST'])
 def login():
 
     if current_user.is_authenticated:
@@ -81,3 +81,8 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html', title = "Register", form = form)
+
+@app.route('/about')
+def about():
+
+    return render_template('about.html', title = "about")
