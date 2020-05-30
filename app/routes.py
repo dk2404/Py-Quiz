@@ -86,3 +86,13 @@ def register():
 def about():
 
     return render_template('about.html', title = "about")
+
+@app.route('/dilip')
+def dilip():
+
+    return render_template('dilip.html',title ="dilip")
+
+@app.route('/sonali')
+def sonali():
+
+    return render_template('sonali.html',title ="dilip")
