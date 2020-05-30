@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +17,12 @@
     {% if current_user.is_anonymous %}
     <a href="{{ url_for('login') }}">Login</a>
     <a href="{{ url_for('register') }}" >Register</a>
-    {% else %}
+    
+    {% else%}
     <a href = "{{ url_for('logout') }}"> Logout </a>
     {% endif %}
+    <a href="{{ url_for('about') }}">About</a>
     
-    <a href="about.html">About</a>
 </div>
 
 <div class="content">
@@ -122,7 +126,7 @@
       </div>
       <br>
       <br>
-      <h2>Refrences</h2>
+      <h2>References</h2>
       <!-- Here we are linking the data refrences to the realted data-->
       <div class="content">
           <p id="p1">[1]<a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">https://en.wikipedia.org/wiki/Cascading_Style_Sheets</a></p> 
@@ -137,3 +141,4 @@
 
 </body>
 </html>
+{% endblock %}

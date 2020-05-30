@@ -1,11 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
   <title> About the Authors  </title>
   <meta charset="UTF-8">
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
   <!-- social profiles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script  src="../../js/js.js"></script>
@@ -16,11 +18,16 @@
 
 <body>
             
-            <div class="pagination">
-                <a href="intro.html">Home</a>
-                <a href="css.html">Login</a>
-                <a href="javascript.html" >Register</a>
+              <div class="pagination">
+                <a href="{{ url_for('index') }}">Home</a>
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}" >Register</a>
+                {% else%}
+                <a href = "{{ url_for('logout') }}"> Logout </a>
+                {% endif %}
                 <a class="active">About</a>
+                
             </div>
     
             <h1>Dilip Kotha & Sonali Suhane</h1>
@@ -49,3 +56,4 @@
 </div>
 </body>
 </html>
+{% endblock %}
