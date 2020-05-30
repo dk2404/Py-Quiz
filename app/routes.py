@@ -6,8 +6,8 @@ from app.models import User
 from werkzeug.urls import url_parse
 
 @app.route('/')
-@app.route('/index')
-@login_required
+@app.route('/index', methods=['GET', 'POST'])
+# @login_required
 def index():
     user = {'username': 'Sonali'}
     posts = [
@@ -23,7 +23,7 @@ def index():
     return render_template('intro.html', title = 'Home', posts = posts)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login')
 def login():
 
     if current_user.is_authenticated:
