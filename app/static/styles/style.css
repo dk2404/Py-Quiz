@@ -51,6 +51,12 @@ font-size: 120%;
     height: 20px;
 }
 
+/* Add padding to container elements */
+.container {
+  padding: 100px;
+}
+
+
   
 /*styling the page navigator*/
 
