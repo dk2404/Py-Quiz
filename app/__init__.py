@@ -18,10 +18,10 @@ admin = Admin(app,name='Dash Board', template_mode='bootstrap3')
 login = LoginManager(app)
 login.login_view = 'login'
 
-from app.models import User,Post,Question
+from app.models import User,Post,Question,question_level
 admin.add_view(ModelView(User,db.session))
 admin.add_view(ModelView(Question,db.session))
-#admin.add_view(ModelView(question_level,db.session))
+admin.add_view(ModelView(question_level,db.session))
 
-
+db.create_all()
 from app import routes, models

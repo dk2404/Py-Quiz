@@ -17,8 +17,10 @@ class User(UserMixin, db.Model):
     username      = db.Column(db.String(64),  index = True, unique = True)
     email         = db.Column(db.String(128), index = True, unique = True)
     password_hash = db.Column(db.String(128))
+    #level_id      = db.Column(db.Integer, db.ForeignKey('question_level.id'))
 
-    question=db.relationship('Question', backref='admin',lazy='dynamic')
+    #question=db.relationship('Question', backref='admin',lazy='dynamic')
+    #level=db.relationship('question_level', foreign_keys=[level_id])
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
     # Printing out which user is current
@@ -49,17 +51,27 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
+class question_level(db.Model):
+     id = db.Column(db.Integer, primary_key=True)
+     #user = db.Column(db.Integer, db.ForeignKey('User.id'))
+     level=db.Column(db.Text)
+     #question = db.Column(db.Text)
+     question_type=db.relationship('Question', backref='admin',lazy='dynamic')
+     
+     def __repr__(self):
+         return '<question_level {}>'.format(self.body)
 
 #Creating question to be asked in data base
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.Text)
     answer = db.Column(db.Text)
-    admin_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    level = db.Column(db.Integer, db.ForeignKey('question_level.id'))
+    #admin_id = db.Column(db.Integer, db.ForeignKey('question_level.id'))
 
     # Printing out which post is current 
     def __repr__(self):
-        return '<Question {}>'.format(self.body)
+        return '<Question %r>' % (self.id)
 
-class QuestionAdmin(ModelView):
-    form_columns = ['question', 'answer', 'id']
+#class QuestionAdmin(ModelView):
+#    form_columns = ['question', 'answer', 'id','question_level']

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User,Question
 from werkzeug.urls import url_parse
 
 @app.route('/')
@@ -20,7 +20,7 @@ def index():
             'body': 'Six seasons and a Netflix special'
         }
     ]
-    return render_template('intro.html', title = 'Home', posts = posts)
+    return render_template('intro.html', title = 'Home', posts = posts,question_level=question_level, Question=Question)
 
 
 @app.route('/login',methods=['GET', 'POST'])
