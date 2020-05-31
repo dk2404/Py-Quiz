@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash 
 from flask_login import UserMixin
+from flask_admin.contrib.sqla import ModelView
 
 # Load a user into our session 
 @login.user_loader
@@ -17,6 +18,7 @@ class User(UserMixin, db.Model):
     email         = db.Column(db.String(128), index = True, unique = True)
     password_hash = db.Column(db.String(128))
 
+    question=db.relationship('Question', backref='admin',lazy='dynamic')
     posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
     # Printing out which user is current
@@ -30,6 +32,9 @@ class User(UserMixin, db.Model):
     # Get the original password back 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+class Useradmin(ModelView):
+    form_columns = ['id','username','email']
 
 # Create the Post table in the database 
 class Post(db.Model):
@@ -45,3 +50,16 @@ class Post(db.Model):
         return '<Post {}>'.format(self.body)
 
 
+#Creating question to be asked in data base
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.Text)
+    answer = db.Column(db.Text)
+    admin_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    # Printing out which post is current 
+    def __repr__(self):
+        return '<Question {}>'.format(self.body)
+
+class QuestionAdmin(ModelView):
+    form_columns = ['question', 'answer', 'id']
