@@ -69,7 +69,6 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-
         user = User(username = form.username.data, email = form.email.data)
         user.set_password(form.password.data)
 
@@ -84,15 +83,20 @@ def register():
 
 @app.route('/about')
 def about():
-
     return render_template('about.html', title = "about")
 
 @app.route('/dilip')
 def dilip():
+    return render_template('dilip.html', title ="dilip")
 
-    return render_template('dilip.html',title ="dilip")
+@app.route('/add_question')
+def add_question():
+    print("USER NAME: " + current_user.username)
+    if current_user.is_authenticated and current_user.username == 'admin':
+        return render_template('add_question.html')
+    return render_template("restricted.html")
 
 @app.route('/sonali')
 def sonali():
-
     return render_template('sonali.html',title ="dilip")
+
