@@ -59,7 +59,10 @@ class question_level(db.Model):
      question_type=db.relationship('Question', backref='admin',lazy='dynamic')
      
      def __repr__(self):
-         return '<question_level {}>'.format(self.body)
+        return '<question_level %r>' % (self.id)
+
+class question_levelAdmin(ModelView):
+    form_columns = ['id','level']
 
 #Creating question to be asked in data base
 class Question(db.Model):
@@ -71,7 +74,7 @@ class Question(db.Model):
 
     # Printing out which post is current 
     def __repr__(self):
-        return '<Question %r>' % (self.id)
+         return '<Question {}>'.format(self.body)
 
-#class QuestionAdmin(ModelView):
-#    form_columns = ['question', 'answer', 'id','question_level']
+class QuestionAdmin(ModelView):
+    form_columns = ['question', 'answer', 'id','question_level']
