@@ -2,29 +2,6 @@
 
 {% block content %}
 <body>
-<<<<<<< HEAD
-=======
-<!-- We use div's in CSS-->
-<!-- Here we are declaring a top navigation bar-->
-<div class="pagination">
-    <a class="active">Home</a>
-    {% if current_user.is_anonymous %}
-    <a href="{{ url_for('login') }}">Login</a>
-    <a href="{{ url_for('register') }}" >Register</a>
-    
-    {% else%}
-    <a href = "{{ url_for('test') }}"> Test </a>
-    <a href = "{{ url_for('feedback') }}"> Previous Tests </a>
-    <a href = "{{ url_for('logout') }}"> Logout </a>
-    {% endif %}
-    {% if not current_user.is_anonymous and current_user.username == 'admin'%}
-    <a href="{{ url_for('admin.index') }}">Admin</a>
-    {% endif %}
-    <a href="{{ url_for('about') }}">About</a>
-    
-</div>
-
->>>>>>> f2cee18e3998ce941fb594f67b6ad2bf1b8fd4a5
 <div class="content">
   
   <h1>Py-Quiz</h1>
