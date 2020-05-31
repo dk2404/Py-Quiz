@@ -21,6 +21,9 @@
     {% else%}
     <a href = "{{ url_for('logout') }}"> Logout </a>
     {% endif %}
+    {% if not current_user.is_anonymous and current_user.username == 'admin'%}
+    <a href="{{ url_for('add_question') }}">Admin</a>
+    {% endif %}
     <a href="{{ url_for('about') }}">About</a>
     
 </div>
