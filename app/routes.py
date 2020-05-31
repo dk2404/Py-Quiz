@@ -100,3 +100,10 @@ def add_question():
 def sonali():
     return render_template('sonali.html',title ="dilip")
 
+@app.route('/test')
+def test():
+    return render_template('test.html',title="test")
+
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html',title="test")
