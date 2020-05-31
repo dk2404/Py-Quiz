@@ -18,12 +18,11 @@ class User(UserMixin, db.Model):
     username      = db.Column(db.String(64),  index = True, unique = True)
     email         = db.Column(db.String(128), index = True, unique = True)
     password_hash = db.Column(db.String(128))
-    #Answers       = db.Column(db.String(256))
-    #level_id      = db.Column(db.Integer, db.ForeignKey('question_level.id'))
+    feedback      = db.relationship('feedback', backref='User', lazy='dynamic')
+    outcome       = db.relationship('Result', backref='User_out', lazy='dynamic')
+    posts         = db.relationship('Post', backref = 'author', lazy = 'dynamic')
+    ques          = db.relationship('answers', backref='answer_user', lazy='dynamic')
 
-    #question=db.relationship('Question', backref='admin',lazy='dynamic')
-    #level=db.relationship('question_level', foreign_keys=[level_id])
-    posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
 
     # Printing out which user is current
     def __repr__(self):
@@ -53,18 +52,26 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
-class question_level(db.Model):
-     id = db.Column(db.Integer, primary_key=True)
-     #user = db.Column(db.Integer, db.ForeignKey('User.id'))
-     level=db.Column(db.Text)
-     #question = db.Column(db.Text)
-     question_type=db.relationship('Question', backref='question_level',lazy='dynamic')
+# class question_level(db.Model):
+#      id = db.Column(db.Integer, primary_key=True)
+#      #user = db.Column(db.Integer, db.ForeignKey('User.id'))
+#      level=db.Column(db.Text)
+#      #question = db.Column(db.Text)
+#      #question_type=db.relationship('Question', backref='question_level',lazy='dynamic')
           
-     def __repr__(self):
-        return '< %r>' % (self.level)
+#      def __repr__(self):
+#         return '< %r>' % (self.level)
 
-class question_levelAdmin(ModelView):
-    form_columns = ['id','level']
+# class question_levelAdmin(ModelView):
+#     form_columns = ['id','level']
+
+class Result(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
+    result = db.Column(db.Integer, index=True)
+
+    def __repr__(self):
+        return 'Total {}: '.format(self.User.username)
 
 #Creating question to be asked in data base
 class Question(db.Model):
@@ -73,54 +80,46 @@ class Question(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.Text)
-    #answer = db.Column(db.Text)
-    level   = db.Column(db.Integer, db.ForeignKey('question_level.id'))
-    choice1 = db.Column(db.String(128), unique=False, nullable=False)
-    choice2 = db.Column(db.String(128), unique=False, nullable=False)
-    choice3 = db.Column(db.String(128), unique=False, nullable=False)
-    choice4 = db.Column(db.String(128), unique=False, nullable=False)
-    correct = db.Column(db.Integer, unique=False, nullable=False)
-    #admin_id = db.Column(db.Integer, db.ForeignKey('question_level.id'))
-
-    # Printing out which post is current 
-    # def __repr__(self):
-    #     return '<Question %r>' % (self.id)
+    question_marks=db.Column(db.Integer, index = True, default = "10")
+    mcq      = db.relationship('MCQ', backref='Question', lazy='dynamic')
+    #level    = db.Column(db.Integer, db.ForeignKey('question_level.id'))
+    answer   = db.relationship('answers', backref='answers', lazy='dynamic')
+    
+    
 
     def __repr__(self):
-        return "< Question - id: {} question: {}  {} {} {} {} {} {} >".format(
+        return "< Question - id: {} question: {}  {} {}   >".format(
             self.id,
             self.question,
-            self.choice1,
-            self.choice2,
-            self.choice3,
-            self.choice4,
-            self.correct
+            self.answer,
+            self.question_marks
         )
 
 class QuestionAdmin(ModelView):
     form_columns = ['question', 'answer', 'id','question_level']
 
-# class QuizForm(ModelView):
-#   q1 = RadioField(validators=[InputRequired()])
-#   q2 = RadioField(validators=[InputRequired()])
-#   q3 = RadioField(validators=[InputRequired()])
-#   q4 = RadioField(validators=[InputRequired()])
+class feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    
+    Feedback = db.Column(db.String(256), index=True)
+    user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
 
-#   cancel = SubmitField("Cancel")
+    def __repr__(self):
+        return '<feedback %r>' % (self.user)
 
-# form = QuizForm(request.form)
-# form.q1.choices = [
-#     ("1", questions[0].choice1),
-#     ("2", questions[0].choice2),
-#     ("3", questions[0].choice3),
-#     ("4", questions[0].choice4)
-#   ]
-# form.q2.choices = [
-#     ("1", questions[1].choice1),
-#     ("2", questions[1].choice2),
-#     ("3", questions[1].choice3),
-#     ("4", questions[1].choice4)
-#   ]
-  
+class answers(db.Model):
+    id            = db.Column(db.Integer, primary_key=True)
+    answer        = db.Column(db.String(256), index=True)
+    user_id       = db.Column(db.Integer, db.ForeignKey('user.id'))
+    question_id   = db.Column(db.Integer, db.ForeignKey('questions.id'))
+    user_marks    = db.Column(db.Integer, index = True)
 
-  
+
+class MCQ(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    options_content = db.Column(db.Text, index=True)
+    correct = db.Column(db.Boolean, default = False, nullable=False)
+    question_id =db.Column(db.Integer, db.ForeignKey('questions.id'))
+
+    def __repr__(self):
+        return 'MCQ {}: '.format(self.options_content)

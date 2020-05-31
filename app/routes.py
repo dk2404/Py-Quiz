@@ -2,14 +2,15 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User,Question, question_level
+from app.models import User,Question, Result, feedback, MCQ
 from werkzeug.urls import url_parse
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 # @login_required
 def index():
-    user = {'username': 'Sonali'}
+    users = User.query.all()
+    
     posts = [
         {
             'author': {'username': 'Sonali'},
@@ -20,7 +21,11 @@ def index():
             'body': 'Six seasons and a Netflix special'
         }
     ]
-    return render_template('intro.html', title = 'Home', posts = posts,question_level=question_level, Question=Question)
+    return render_template('intro.html', title = 'Home', 
+                            posts = posts, 
+                            Question=Question, 
+                            feedback=feedback, 
+                            Result=Result )
 
 
 @app.route('/login',methods=['GET', 'POST'])
@@ -100,12 +105,68 @@ def add_question():
 def sonali():
     return render_template('sonali.html',title ="dilip")
 
-@app.route('/test')
-def test():
-    return render_template('test.html',title="test")
+# @app.route('/test')
+# def test():
+#     return render_template('test.html',title="test")
 
 @app.route('/feedback')
 def feedback():
     return render_template('feedback.html',title="test")
 
 
+@app.route('/test')
+def test():
+    users = User.query.all()
+
+    avg = 0
+    numUser = 0
+    avglong = 0
+    numUseranswer = 0
+    # calculate the user's avg marks for short answer question
+    for user in users:
+        if not bool(user.outcome.first()):
+            continue
+        else:
+            numUser +=1
+            avg += user.outcome[0].result
+
+    return render_template('exam.html', title = 'exam', avg = avg, numUser = numUser,
+                           
+                            Question=Question, 
+                            feedback=feedback, 
+                            Result=Result,
+                            MCQ=MCQ )
+
+
+# quiz route for quiz.html the page where users get to play the quiz
+@app.route('/exam', methods=['GET', 'POST'])
+@login_required
+def quiz():
+    
+    # querie to get a list of short answer questions
+    #questions = Question.query.filter_by(question)
+    questions = Question.query.filter_by(question)
+    score = 0 
+
+    # if the quiz form on quiz.html has been submitted
+    if request.method == "POST":
+
+        # check if the answer submitted are correct for the short answer questions and generate the result accordingly
+        for question in questions:
+            ques_id = str(question.id)
+            request_name = request.form.get[ques_id]
+            if MCQ.query.filter_by(options_content = request_name).first().correct:
+                score += 1
+
+        #check if quiz has been done by a user previously if not add a quiz table for the result of the user
+        if not bool(Result.query.filter_by(user_id = current_user.id).first()):
+            result = Result(user_out= current_user)
+            db.session.add(quiz)
+            db.session.commit()
+        current_user.result[0].result = score
+        db.session.commit()    
+
+
+        return redirect(url_for('feedback'))
+
+    return render_template('exam.html', title='Quiz')
