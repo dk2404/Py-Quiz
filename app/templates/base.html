@@ -23,6 +23,8 @@
             <a href="{{ url_for('register') }}" >Register</a>
             
             {% else%}
+            <a href = "{{ url_for('test') }}"> Test </a>
+            <a href = "{{ url_for('feedback') }}"> Previous Tests </a>
             <a href = "{{ url_for('logout') }}"> Logout </a>
             {% endif %}
             {% if not current_user.is_anonymous and current_user.username == 'admin'%}
