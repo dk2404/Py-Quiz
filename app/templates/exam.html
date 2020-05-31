@@ -19,7 +19,7 @@
             <div class="question-body">
                 <h2 class="question-h2">{{question.question}}</h2>
                 <div class="all-options">
-                    {%for option in question.mcq%}
+                    {%for mcq in question.mcq%}
                         <input type="radio" name = "{{question.id}}" id="{{mcq.id}}" value="{{mcq.options_content}}" required>
                         <label for="{{mcq.id}}"> {{mcq.options_content}} </label> <br>
                     {% endfor %}

@@ -4,6 +4,7 @@ from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User,Question, Result, feedback, MCQ
 from werkzeug.urls import url_parse
+from sqlalchemy import func
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
@@ -111,7 +112,26 @@ def sonali():
 
 @app.route('/feedback')
 def feedback():
-    return render_template('feedback.html',title="test")
+
+    if request.method == "POST":
+        feedbackrequest = request.form["Feedback"]
+        if not bool(feedback.query.filter_by(user_id = current_user.id).first()):
+            Feedback = feedback(user = current_user)
+            db.session.add(Feedback)
+            db.session.commit()
+        current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback = feedbackrequest
+        db.session.commit()
+    # variables to store the short answer question mark, sum of the total short question marks 
+    # and percentage for the mark
+    score = ""
+    question_sum = ""
+    percentage = ""
+    # calculate the above variables below if result can be found for the current user
+    if bool(Result.query.filter_by(user_id = current_user.id).first()):
+        question_sum = db.session.query(func.sum(Question.question_marks)).scalar()
+        score = current_user.outcome[0].result
+
+    return render_template('feedback.html', title='Account', score = score, sum = question_sum, percentage = percentage )
 
 
 @app.route('/test')
@@ -143,9 +163,8 @@ def test():
 @login_required
 def quiz():
     
-    # querie to get a list of short answer questions
-    #questions = Question.query.filter_by(question)
-    questions = Question.query.filter_by(question)
+    questions = Question.query.all()
+    mcq=MCQ.query.all()
     score = 0 
 
     # if the quiz form on quiz.html has been submitted
@@ -154,19 +173,17 @@ def quiz():
         # check if the answer submitted are correct for the short answer questions and generate the result accordingly
         for question in questions:
             ques_id = str(question.id)
-            request_name = request.form.get[ques_id]
+            request_name = request.form[ques_id]
             if MCQ.query.filter_by(options_content = request_name).first().correct:
                 score += 1
 
         #check if quiz has been done by a user previously if not add a quiz table for the result of the user
         if not bool(Result.query.filter_by(user_id = current_user.id).first()):
-            result = Result(user_out= current_user)
-            db.session.add(quiz)
+            outcome = Result(user_result= current_user)
+            db.session.add(outcome)
             db.session.commit()
-        current_user.result[0].result = score
+        current_user.outcome[0].result = score
         db.session.commit()    
-
-
         return redirect(url_for('feedback'))
 
-    return render_template('exam.html', title='Quiz')
+    return render_template('exam.html', title='Quiz',questions=questions,mcq=mcq)

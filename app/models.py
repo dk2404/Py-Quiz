@@ -18,8 +18,8 @@ class User(UserMixin, db.Model):
     username      = db.Column(db.String(64),  index = True, unique = True)
     email         = db.Column(db.String(128), index = True, unique = True)
     password_hash = db.Column(db.String(128))
-    feedback      = db.relationship('feedback', backref='User', lazy='dynamic')
-    outcome       = db.relationship('Result', backref='User_out', lazy='dynamic')
+    Feedback      = db.relationship('feedback', backref='user', lazy='dynamic')
+    outcome       = db.relationship('Result', backref='user_result', lazy='dynamic')
     posts         = db.relationship('Post', backref = 'author', lazy = 'dynamic')
     ques          = db.relationship('answers', backref='answer_user', lazy='dynamic')
 
@@ -71,19 +71,19 @@ class Result(db.Model):
     result = db.Column(db.Integer, index=True)
 
     def __repr__(self):
-        return 'Total {}: '.format(self.User.username)
+        return 'Total {} {}: '.format(self.user_result.username,self.result)
 
 #Creating question to be asked in data base
 class Question(db.Model):
 
     __tablename__ = "questions"
 
-    id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Text)
-    question_marks=db.Column(db.Integer, index = True, default = "10")
-    mcq      = db.relationship('MCQ', backref='Question', lazy='dynamic')
-    #level    = db.Column(db.Integer, db.ForeignKey('question_level.id'))
-    answer   = db.relationship('answers', backref='answers', lazy='dynamic')
+    id              = db.Column(db.Integer, primary_key=True)
+    question        = db.Column(db.Text)
+    question_marks  = db.Column(db.Integer, index = True, default = "10")
+    mcq             = db.relationship('MCQ', backref='Question', lazy='dynamic')
+    #level          = db.Column(db.Integer, db.ForeignKey('question_level.id'))
+    answer          = db.relationship('answers', backref='answers', lazy='dynamic')
     
     
 
@@ -100,12 +100,8 @@ class QuestionAdmin(ModelView):
 
 class feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    
     Feedback = db.Column(db.String(256), index=True)
     user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    def __repr__(self):
-        return '<feedback %r>' % (self.user)
 
 class answers(db.Model):
     id            = db.Column(db.Integer, primary_key=True)

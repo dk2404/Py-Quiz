@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask,url_for
 #from config import TestConfig
 from config import Config
 from flask_sqlalchemy import SQLAlchemy 
 from flask_migrate import Migrate
 from flask_login import LoginManager 
-from flask_admin import Admin 
+from flask_admin.menu import MenuLink
+from flask_admin import Admin, expose, AdminIndexView
 from flask_bootstrap import Bootstrap
 from flask_admin.contrib.sqla import ModelView
 
@@ -15,7 +16,8 @@ app.config.from_object(Config)
 Bootstrap(app)
 migrate = Migrate(app, db)
 
-admin = Admin(app,name='Dash Board', template_mode='bootstrap3')
+admin = Admin(app, name='Dash Board', template_mode='bootstrap3')
+
 login = LoginManager(app)
 login.login_view = 'login'
 
