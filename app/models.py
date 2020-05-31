@@ -43,3 +43,5 @@ class Post(db.Model):
     # Printing out which post is current 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+
