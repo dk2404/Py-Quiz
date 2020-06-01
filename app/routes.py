@@ -100,7 +100,12 @@ def sonali():
 def feedback():
 
     Questions = Question.query.filter_by(text_question=0)
-    Feedback = current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback 
+
+    feedbackflag = 0
+    Feedback=""
+    if not bool(current_user.Feedback.filter_by(user_id = current_user.id).first() == None):
+        feedbackflag = 1
+        Feedback = current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback 
    
     score = ""
     question_sum = ""
@@ -127,6 +132,10 @@ def feedback():
      # calculate the above variables below for each long answer question
     for question in questions:
         # if no long answer entry can be found for the current user then skip the loop
+        if not bool(current_user.ques.filter_by(question_id = question.id).first()):
+            quizcompleteflag = False
+            break
+        # if no long answer entry can be found for the current user then skip the loop
         if not bool(current_user.ques.filter_by(question_id = question.id).first().user_marks == None):
             markflag = True
             mark += current_user.ques.filter_by(question_id = question.id).first().user_marks
@@ -137,6 +146,7 @@ def feedback():
    
     return render_template('feedback.html',
                          title='feedback',Feedback=Feedback, 
+                         feedbackflag=feedbackflag,
                          score = score,question_num=question_num, 
                          sum = question_sum,
                          question_mark = question_mark,
