@@ -7,18 +7,21 @@
 <body>
 <div class="content">
   {% if current_user.is_anonymous %}
-    <h3> welcome! to the python quiz </3>
+    <h3> welcome! to the py-quiz </3>
   {% else %}
     <h> welcome, {{ current_user.username }}</h>
   {% endif %}
-                           
+  <br>
+  <h2> py-quiz </h2>
+  <br>
+
   <img class="img_container1" src="{{ url_for('static',filename='images/py.png') }}" alt="adv/">
   <h2 class="header">Python questionnaire to check your proficiency!</h2>
       <!-- here we are declaring a special class to style it accordingly--> 
-        <div class="p">Python is a programming language that lets you work more quickly and integrate your systems more effectively.
+        <div class="p1">Python is a programming language that lets you work more quickly and integrate your systems more effectively.
             You can learn to use Python and see almost immediate gains in productivity and lower maintenance costs.
         </div>
-        <div class="p">
+        <div class="p1">
             The Python online test assesses candidates' knowledge of programming in the Python language and understanding of its native data structures.
             It's an ideal test for pre-employment screening. A good Python developer needs to be able not only to solve problems using Python as the programming language but also be familiar with Python native data structures and language constructs.
             This online test requires candidates to solve coding problems in Python as well as to find and fix bugs in a Python program. 
@@ -30,11 +33,11 @@
         <!-- Here we are linking the top navigation bar to the related data-->
         <h2>Recommended Job Roles</h2>
         <div class="content">
-            <ul>
+            <ul style="color: gainsboro; margin-left: 350px;">
                 <li>Back end Developer</li>
                 <li>Python Developer</li>
                 <li>Web Developer</li>
-              </ul>
+            </ul>
         </div>
         <h2 >Types of Quiz</h2>
         <div class="middlenav">
@@ -122,3 +125,4 @@
 </body>
 </html>
 {% endblock %}
+

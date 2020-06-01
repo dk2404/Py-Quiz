@@ -28,7 +28,7 @@
 			<h3>the player's result: 
 			</br>
                             You got a score of {{score}} out of {{question_num}} 
-                            your feedback by admin was : {{Feedback}}
+                            your feedback by scorer was : {{Feedback}}
                         
 		</h3>
                     {%elif score!=0 %}
@@ -36,7 +36,7 @@
 		<h3>the player's result: 
 		</br>
                             You got a score of {{score}} out of {{question_num}} 
-                            your feedback by admin was : {{Feedback}}
+                            your feedback by scorer was : {{Feedback}}
                         
 	</h3>
                     {% else %}
@@ -55,9 +55,9 @@
 <h3>your long answer questions have been reviewed: 
 </br>
                             you got a score of {{mark}} out of {{question_mark}} 
-                        undefined</h3>
+                       </h3>
                     {%else %}
-                        undefined<h3> 
+                        <h3> 
                             Your test is under review, please come back later for result.
                         </h3>
                     {% endif %}
@@ -66,13 +66,13 @@
             
             {%else %}
                 
-                undefined<h style="margin-left: 200px;">Your test is under review please come back later for your results.</h>
+                <h style="margin-left: 200px;">Your test is under review please come back later for your results.</h>
             {% endif %}
         {%else %}
                 
-            undefined<h style="margin-left: 480px;font-size: xx-large;">Take test to get a feedback</h>undefined<br>
+            <h style="margin-left: 480px;font-size: xx-large;">Take test to get a feedback</h><br>
 <br>
-	<a href="{{ url_for('test') }}" class="button">Take test</a>
+	<a style="margin-left: 550px;" href="{{ url_for('test') }}" class="button">Take test</a>
         {% endif %}
 
     
