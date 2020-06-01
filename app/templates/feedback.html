@@ -2,8 +2,9 @@
 
 {% block content %}
 
+
 <link href="{{ url_for('static', filename='css/feedback.css') }}" rel="stylesheet">
-<style>
+	<style>
     h1,h3{
         text-align: center;
         color: darkgray;
@@ -11,40 +12,52 @@
 
 
 </style>
-
-    <!-- bar at the top of body-->
-    <div>
-    <!-- body content -->
-    <div >
-        <h1 >Hi, {{ current_user.username }}!</h1>
+	<!-- bar at the top of body-->
+	<div>
+		<!-- body content -->
+		<div >
+			<h1 >Hi, {{ current_user.username }}!</h1>
         {% if quizcompleteflag %}
             {% if feedbackflag == 1 %}
 
                 {% if quizcompleteflag %}
-                    <!-- Display the player's result if it exists -->
+                    
+			<!-- Display the player's result if it exists -->
                     {%if score==0%}
-                        <h3>the player's result: </br>
+                        
+			<h3>the player's result: 
+			</br>
                             You got a score of {{score}} out of {{question_num}} 
                             your feedback by admin was : {{Feedback}}
-                        </h3>
+                        
+		</h3>
                     {%elif score!=0 %}
-                        <h3>the player's result: </br>
+                        
+		<h3>the player's result: 
+		</br>
                             You got a score of {{score}} out of {{question_num}} 
                             your feedback by admin was : {{Feedback}}
-                        </h3>
+                        
+	</h3>
                     {% else %}
-                        <h3>Your results: </br>
+                        
+	<h3>Your results: 
+	</br>
                             you have not done the quiz yet!
-                        </h3>
+                        
+</h3>
                     {% endif %}
                 
-                    <!-- Score -->
+                    
+<!-- Score -->
                     {% if markflag %}
-                        <h3>your long answer questions have been reviewed: </br>
+                        
+<h3>your long answer questions have been reviewed: 
+</br>
                             you got a score of {{mark}} out of {{question_mark}} 
-                        </h3>
+                        undefined</h3>
                     {%else %}
-                        <h3> 
+                        undefined<h3> 
                             Your test is under review, please come back later for result.
                         </h3>
                     {% endif %}
@@ -53,16 +66,16 @@
             
             {%else %}
                 
-                <h style="margin-left: 200px;">Your test is under review please come back later for your results.</h>
+                undefined<h style="margin-left: 200px;">Your test is under review please come back later for your results.</h>
             {% endif %}
         {%else %}
                 
-            <h style="margin-left: 480px;font-size: xx-large;">Take test to get a feedback</h>
-            <br>
-            <br>
-            <a href="{{ url_for('test') }}" class="button">Take test</a>
+            undefined<h style="margin-left: 480px;font-size: xx-large;">Take test to get a feedback</h>undefined<br>
+<br>
+	<a href="{{ url_for('test') }}" class="button">Take test</a>
         {% endif %}
 
-    </div>
+    
+</div>
 
 {% endblock %}
