@@ -395,3 +395,12 @@
         height: 350px; 
         margin-bottom: 10px;
         }
+        .dilfoo {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          background-color: rgb(153, 149, 149);
+          color: white;
+          text-align: center;
+       }  
