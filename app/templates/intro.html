@@ -7,12 +7,12 @@
 <body>
 <div class="content">
   {% if current_user.is_anonymous %}
-    <h3> welcome! to the py-quiz </3>
+    <h3> welcome! to the py-quiz <h3>
   {% else %}
-    <h> welcome, {{ current_user.username }}</h>
+    <h3> welcome, {{ current_user.username }}</h3>
   {% endif %}
   <br>
-  <h2> py-quiz </h2>
+  <h5> Py-Quiz </h5>
   <br>
 
   <img class="img_container1" src="{{ url_for('static',filename='images/py.png') }}" alt="adv/">
@@ -125,4 +125,5 @@
 </body>
 </html>
 {% endblock %}
+
 
