@@ -1,5 +1,5 @@
 from flask import Flask,url_for
-from config import TestConfig
+#from config import TestConfig
 from config import Config
 from flask_sqlalchemy import SQLAlchemy 
 from flask_migrate import Migrate
@@ -13,7 +13,7 @@ from flask_admin.contrib.sqla import ModelView
 app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config.from_object(Config)
-app.config.from_object(TestConfig)
+#app.config.from_object(TestConfig)
 Bootstrap(app)
 migrate = Migrate(app, db)
 

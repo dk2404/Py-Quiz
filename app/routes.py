@@ -119,7 +119,7 @@ def feedback():
     questions = Question.query.filter_by(text_question=True)
     # variables for the total mark for the long question gotten, total mark weighting 
     # for the long questions, percentage for the mark and the response from admin
-    quizincompleteflag = False
+    quizcompleteflag = True
     markflag = False
     mark = 0
     question_mark = 0
@@ -127,25 +127,22 @@ def feedback():
      # calculate the above variables below for each long answer question
     for question in questions:
         # if no long answer entry can be found for the current user then skip the loop
-        if not bool(current_user.ques.filter_by(question_id = question.id).first()):
-            quizincompleteflag = True
-            break
         if not bool(current_user.ques.filter_by(question_id = question.id).first().user_marks == None):
             markflag = True
             mark += current_user.ques.filter_by(question_id = question.id).first().user_marks
             question_mark += question.question_marks
     # if there are entries in the long answer for the current user
-    if not quizincompleteflag:
-        long_responses = current_user.ques  
+    if quizcompleteflag:
+        responses = current_user.ques  
    
     return render_template('feedback.html',
                          title='feedback',Feedback=Feedback, 
                          score = score,question_num=question_num, 
                          sum = question_sum,
-                        mark = mark, markflag = markflag, 
-                        question_mark = question_mark,
-                        quizincompleteflag = quizincompleteflag, 
-                        long_responses = long_responses )
+                         question_mark = question_mark,
+                         responses=responses,
+                         mark = mark, markflag = markflag, 
+                         quizcompleteflag = quizcompleteflag)
 
 
 @app.route('/test')
