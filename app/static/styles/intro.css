@@ -1,7 +1,20 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+      body {
+        margin: 0px;
+      width: 100%;
+      height: auto;
+      font-family: 'Raleway', sans-serif;
+      background-color: cadetblue;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    
     * {
         box-sizing: border-box;
         font-family: Arial, Helvetica, sans-serif;
+        background-color: rgba(207, 113, 25, 0.61);
         
       }
       p.solid {border-style: solid;}

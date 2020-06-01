@@ -81,6 +81,7 @@ class Question(db.Model):
     id              = db.Column(db.Integer, primary_key=True)
     question        = db.Column(db.Text)
     question_marks  = db.Column(db.Integer, index = True, default = "10")
+    text_question   = db.Column(db.Boolean, default = False)
     mcq             = db.relationship('MCQ', backref='Question', lazy='dynamic')
     #level          = db.Column(db.Integer, db.ForeignKey('question_level.id'))
     answer          = db.relationship('answers', backref='answers', lazy='dynamic')
@@ -88,11 +89,9 @@ class Question(db.Model):
     
 
     def __repr__(self):
-        return "< Question - id: {} question: {}  {} {}   >".format(
+        return "< Question - id: {} question: {}   >".format(
             self.id,
-            self.question,
-            self.answer,
-            self.question_marks
+            self.question
         )
 
 class QuestionAdmin(ModelView):
