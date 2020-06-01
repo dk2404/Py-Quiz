@@ -23,25 +23,20 @@
             </h3>
         {% endif %}
 
-        {% if markflag %}
+        {% if quizcompleteflag %}
+        
             <!-- Score -->
-            <h3>your long answer questions have been reviewed: </br>
-                you got a score of {{mark}} out of {{question_mark}} 
-            </h3>
-            <!-- present all the long answer responses -->
-            {%for answer in long_responses%}
-                <div class="long-response">
-                {% if answer.user_marks %}
-                    <br>
-                    
-                    <h3> you got <mark><b>{{answer.user_marks}}</b></mark> in intermediate level quiz! </h3>
-                {% endif %}
-                </div>
-            {% endfor %}
-        {%else %}
-            <h3>Your results: </br>
-                you have not done intermediate quiz yet!
-            </h3>
+            {% if markflag %}
+                <h3>your long answer questions have been reviewed: </br>
+                    you got a score of {{mark}} out of {{question_mark}} 
+                </h3>
+
+            {%else %}
+                <h3> 
+                    Your test is under review, please come back later for result.
+                </h3>
+            {% endif %}
+      
         {% endif %}
 
     </div>
