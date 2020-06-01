@@ -17,7 +17,7 @@ class SystemTest(unittest.TestCase):
             db.create_all()
             db.session.query(User).delete()
             db.session.query(Post).delete()
-            u=User(id =1,username='dk',email='dk@dk.com')
+            u=User(id=1,username='dk',email='dk@dk.com')
             u.set_password('dk')
             db.session.add(u)
             db.session.commit()
