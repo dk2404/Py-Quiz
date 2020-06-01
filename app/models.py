@@ -20,7 +20,6 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     Feedback      = db.relationship('feedback', backref='user', lazy='dynamic')
     outcome       = db.relationship('Result', backref='user_result', lazy='dynamic')
-    posts         = db.relationship('Post', backref = 'author', lazy = 'dynamic')
     ques          = db.relationship('answers', backref='answer_user', lazy='dynamic')
 
 
@@ -39,31 +38,6 @@ class User(UserMixin, db.Model):
 class Useradmin(ModelView):
     form_columns = ['id','username','email']
 
-# Create the Post table in the database 
-class Post(db.Model):
-
-    # Initializing basic post info 
-    id = db.Column(db.Integer, primary_key = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    body = db.Column(db.String(150))
-    timestamp = db.Column(db.DateTime, index = True, default = datetime.utcnow)
-
-    # Printing out which post is current 
-    def __repr__(self):
-        return '<Post {}>'.format(self.body)
-
-# class question_level(db.Model):
-#      id = db.Column(db.Integer, primary_key=True)
-#      #user = db.Column(db.Integer, db.ForeignKey('User.id'))
-#      level=db.Column(db.Text)
-#      #question = db.Column(db.Text)
-#      #question_type=db.relationship('Question', backref='question_level',lazy='dynamic')
-          
-#      def __repr__(self):
-#         return '< %r>' % (self.level)
-
-# class question_levelAdmin(ModelView):
-#     form_columns = ['id','level']
 
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -83,7 +57,6 @@ class Question(db.Model):
     question_marks  = db.Column(db.Integer, index = True, default = "10")
     text_question   = db.Column(db.Boolean, default = False)
     mcq             = db.relationship('MCQ', backref='Question', lazy='dynamic')
-    #level          = db.Column(db.Integer, db.ForeignKey('question_level.id'))
     answer          = db.relationship('answers', backref='answers', lazy='dynamic')
     
     
@@ -98,9 +71,9 @@ class QuestionAdmin(ModelView):
     form_columns = ['question', 'answer', 'id','question_level']
 
 class feedback(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    Feedback = db.Column(db.String(256), index=True)
-    user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
+    id            = db.Column(db.Integer, primary_key=True)
+    Feedback      = db.Column(db.String(256), index=True)
+    user_id       =db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class answers(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
