@@ -150,7 +150,7 @@ def test():
             numUser +=1
             avg += user.outcome[0].result
 
-    return render_template('exam.html', title = 'exam', avg = avg, numUser = numUser,
+    return render_template('test.html', title = 'exam', avg = avg, numUser = numUser,
                            
                             Question=Question, 
                             feedback=feedback, 
@@ -161,7 +161,7 @@ def test():
 # quiz route for quiz.html the page where users get to play the quiz
 @app.route('/exam', methods=['GET', 'POST'])
 @login_required
-def quiz():
+def exam():
     
     questions = Question.query.all()
     mcq=MCQ.query.all()
