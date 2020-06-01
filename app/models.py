@@ -91,3 +91,4 @@ class MCQ(db.Model):
 
     def __repr__(self):
         return 'MCQ {}: '.format(self.options_content)
+

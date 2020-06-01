@@ -3,7 +3,7 @@
 body{
     background-color: rgb(204, 201, 197);
     background-attachment: scroll;
-    color:midnightblue;
+    color:rgb(212, 212, 236);
     font-weight: 400;
     width: 100%;
     margin: 0;
@@ -15,14 +15,14 @@ h1{
     font-size: 50px;
     font-weight: bold;
     text-align: center;
-    color:rgb(22, 9, 70);
+    color:rgb(218, 214, 233);
     padding: 20px;
     font-family:Georgia;
 }
 
 
 h2,h3,h5 {
-color:rgb(5, 33, 70);
+color:rgb(187, 203, 223);
 text-align: center;
 padding: 20px;
 font-family: "Lato", sans-serif;

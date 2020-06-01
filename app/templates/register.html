@@ -1,54 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <style type="text/css">
-        .p1{
-        margin-top: 10px;
-        margin-left: 250px;
-        font-size:30px
-        }
-        .back{
-            margin-left:400px;height: 600px; 
-            margin-right:400px; 
-            background: rgb(187, 178, 165)
-        }
-        h1{
-            font-size: 80px;
-        }
-    </style>
-    <div class="back">
-        <h1>Register</h1>
+
+<link href="{{ url_for('static', filename='styles/sign.css') }}" rel="stylesheet">
+
+    <div>
+        <h1 style="color: darkgoldenrod;">Register</h1>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
-            <p class="p1">
+            <p>
                 {{ form.username.label }}<br>
                 {{ form.username(size=32) }}<br>
                 {% for error in form.username.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p class="p1">
+            <p style="width: 1010px;margin-left: 15px;">
                 {{ form.email.label }}<br>
                 {{ form.email(size=64) }}<br>
                 {% for error in form.email.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p class="p1">
+            <p>
                 {{ form.password.label }}<br>
                 {{ form.password(size=32) }}<br>
                 {% for error in form.password.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p class="p1">
+            <p>
                 {{ form.password_again.label }}<br>
                 {{ form.password_again(size=32) }}<br>
                 {% for error in form.password_again.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
-            <p class="p1">
+            <p >
                 {{ form.submit(size=128) }}
             </p>
         </form>

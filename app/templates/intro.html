@@ -6,8 +6,12 @@
 
 <body>
 <div class="content">
-  <h> Hi, {{ current_user.username }}! </h>
-  <h1>Py-Quiz</h1>
+  {% if current_user.is_anonymous %}
+    <h3> welcome! to the python quiz </3>
+  {% else %}
+    <h> welcome, {{ current_user.username }}</h>
+  {% endif %}
+                           
   <img class="img_container1" src="{{ url_for('static',filename='images/py.png') }}" alt="adv/">
   <h2 class="header">Python questionnaire to check your proficiency!</h2>
       <!-- here we are declaring a special class to style it accordingly--> 
@@ -36,8 +40,7 @@
         <div class="middlenav">
           <div>Beginner<q>A set of MCQ's to test basic knowledge of Python.</q></div>
           <div>Intermediate<q>A set of short answer questions to identify the errors in the python program.</q></div>
-          <div>Professional<q>A set of coding questions to check the ability to write a good python program.</q></div>  
-        </div>
+           </div>
         
         <h2>Sample Questions!</h2>
         <!-- here we are declaring a class to adjust the images as per our requirement-->

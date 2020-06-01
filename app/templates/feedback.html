@@ -3,13 +3,20 @@
 {% block content %}
 
 <link href="{{ url_for('static', filename='css/feedback.css') }}" rel="stylesheet">
+<style>
+    h1,h3{
+        text-align: center;
+        color: darkgray;
+    }
 
+
+</style>
 
     <!-- bar at the top of body-->
     <div>
     <!-- body content -->
     <div >
-        <h1>Hi, {{ current_user.username }}!</h1>
+        <h1 >Hi, {{ current_user.username }}!</h1>
         {% if quizcompleteflag %}
             {% if feedbackflag == 1 %}
 

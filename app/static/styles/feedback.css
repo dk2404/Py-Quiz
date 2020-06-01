@@ -21,3 +21,7 @@ button input:hover {
     background-color: rgba(109, 66, 10, 0.7);
 }
 
+h3{
+    text-align: center;
+    color: darkgray;
+}

@@ -1,42 +1,50 @@
-
 * {
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
-        
-    }
+}
+
+    
     p.solid {border-style: solid;}
     body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     }
     .p{
-    margin-right: 400px;
-    margin-left: 400px;
+    margin: auto;
+    padding: 20px;
     text-align: justify;
+    color: darkgray;
     }
-      
-    h1{
-    color:black;
+    
+    
+    h{
+    color:white;
     font-family:sans-serif;
-    font-size: 300%;
+    font-size: 150%;
     text-align: center;
     }
 
-    h2{
-    color:black;
+    h1,h2{
+    color:white;
     font-family:sans-serif;
     font-size: 200%;
     text-align: center;
     }
 
     .header {
-    color:black;
+    color:white;
     font-family:sans-serif;
     font-size: 200%;
     margin-left: 250px;
     }
       
     /* Style the top navigation bar */
+    .top {
+      overflow: hidden;
+      color: darkgray;
+      background-color:#F7B733;
+      margin: auto;
+    }
     .topnav {
     overflow: hidden;
     background-color:#F7B733;
@@ -164,18 +172,6 @@
     width:300px;
     height: 350px;    
     }
-    .img_container4 {
-    float: right;
-    widows: 300px;;
-    height:500px;
-    margin-right: 10px;
-    }
-    .img_container3 {
-    float: left;
-    width:400px;
-    height: 500px;
-    margin-left: 10px;
-    }
         
     .alert_container{
     position: absolute;
@@ -244,9 +240,11 @@
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
+    color: darkgray;
+    justify-content: center;
     }
     .pagination a {
-    color: black;
+    color: rgb(196, 183, 183);
     margin: 4px 2px;
     margin-bottom: 5px;
     padding: 8px 16px;
@@ -267,12 +265,133 @@
     width: auto;
     height: 20px;
     bottom:0px;
+    }    
+
+    /* About style sheet */
+    .abh{
+    color:red;
+    font-family:sans-serif;
+    font-size: 300%;
+    text-align: center;
     }
 
-    .abfooter{
+    footer{
     text-align: center;
     background-color: rgb(153, 149, 149);
     width: auto;
     height: 20px;
     bottom:0px;
-    }       
+    }   
+
+    .img_container4 {
+    float: right;
+    widows: 300px;;
+    height:500px;
+    margin-right: 10px;
+    }
+    .img_container3 {
+    float: left;
+    width:400px;
+    height: 500px;
+    margin-left: 10px;
+    }
+
+    .abcon {
+        text-align: justify;
+        text-rendering: optimizeLegibility;
+        font-size: 120%;
+        color: #262626;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        cursor: default;
+        line-height: 2rem;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        margin-left: 200px;
+        margin-right:200px;
+        margin-top: 32px;
+        }
+    .icons{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        align-items: center;
+        text-align: center;
+    }
+
+    .para
+      {
+        color:grey;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 200%;
+        text-align: center;
+        margin-top: 0;
+      }
+      .pa
+      {
+        color:rgb(107, 107, 107);
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 150%;
+        text-align:center;
+        font-weight: bold;
+      }
+      
+      .fa 
+      {
+        padding: 20px;
+        font-size: 30px;
+        width: 60px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+        border-radius: 50%;
+      }
+     
+      .fa:hover 
+      {
+        opacity: 0.7;
+      }
+      
+      .fa-facebook {
+        background: #3B5998;
+        color: white;
+      }
+      
+      .fa-linkedin {
+        background: #007bb5;
+        color: white;
+      }
+      
+      .fa-instagram {
+        background: #125688;
+        color: white;
+      }
+
+      .fa-github {
+        background: black;
+        color: white;
+      }
+
+      .img_container_dilip
+        {
+        margin-top: 10px;
+        width:500px;
+        height: 300px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        
+        }
+
+        .img_container1_dilip
+        {
+            display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        width:250px;
+        height: 350px; 
+        margin-bottom: 10px;
+        }

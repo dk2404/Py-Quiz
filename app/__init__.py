@@ -23,6 +23,7 @@ login = LoginManager(app)
 login.login_view = 'login'
 
 from app.models import User,Question,feedback,Result,MCQ,answers
+admin.add_link(MenuLink(name='Main Menu', url='/'))
 admin.add_view(ModelView(User,db.session))
 admin.add_view(ModelView(Question,db.session))
 admin.add_view(ModelView(MCQ, db.session))
