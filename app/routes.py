@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User,Question, Result, feedback, MCQ
+from app.models import User,Question, Result, feedback, MCQ, answers
 from werkzeug.urls import url_parse
 from sqlalchemy import func
 
@@ -98,14 +98,16 @@ def sonali():
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-    questions = Question.query.all()
+
+    Questions = Question.query.filter_by(text_question=0)
     Feedback = current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback 
+   
     score = ""
     question_sum = ""
     question_num = 0
 
     # to count number of questions
-    for question in questions:
+    for question in Questions:
         question_num+=1
 
    #MCQ quiz result calculation
@@ -113,12 +115,37 @@ def feedback():
         question_sum = db.session.query(func.sum(Question.question_marks)).scalar()
         score = current_user.outcome[0].result
 
-    #feedback= feedback.query.filter_by(user_id = current_user.id)
-    
-            #feedback = Feedback(user = current_user)
-  
 
-    return render_template('feedback.html', title='feedback',Feedback=Feedback, score = score,question_num=question_num, sum = question_sum )
+    questions = Question.query.filter_by(text_question=True)
+    # variables for the total mark for the long question gotten, total mark weighting 
+    # for the long questions, percentage for the mark and the response from admin
+    quizincompleteflag = False
+    markflag = False
+    mark = 0
+    question_mark = 0
+    responses = ""
+     # calculate the above variables below for each long answer question
+    for question in questions:
+        # if no long answer entry can be found for the current user then skip the loop
+        if not bool(current_user.ques.filter_by(question_id = question.id).first()):
+            quizincompleteflag = True
+            break
+        if not bool(current_user.ques.filter_by(question_id = question.id).first().user_marks == None):
+            markflag = True
+            mark += current_user.ques.filter_by(question_id = question.id).first().user_marks
+            question_mark += question.question_marks
+    # if there are entries in the long answer for the current user
+    if not quizincompleteflag:
+        long_responses = current_user.ques  
+   
+    return render_template('feedback.html',
+                         title='feedback',Feedback=Feedback, 
+                         score = score,question_num=question_num, 
+                         sum = question_sum,
+                        mark = mark, markflag = markflag, 
+                        question_mark = question_mark,
+                        quizincompleteflag = quizincompleteflag, 
+                        long_responses = long_responses )
 
 
 @app.route('/test')
@@ -181,18 +208,21 @@ def exam2():
     
     questions = Question.query.filter_by(text_question=True)
 
-    for question in questions:
-        strqid = str(question.id)
-        Answer = request.form[strqid]
-        if not bool(Answers.query.filter_by(user_id = current_user.id, question_id = question.id).first()):
-            answer = Answers(answer_user = current_user, answers = question)
-            db.session.add(long_answer)
+    if request.method == "POST":
+
+
+        for question in questions:
+            ques_id = str(question.id)
+            Answer = request.form[ques_id]
+            if not bool(answers.query.filter_by(user_id = current_user.id, question_id = question.id).first()):
+                answer = answers(answer_user = current_user, answers = question)
+                db.session.add(answer)
+                db.session.commit()
+            result = current_user.ques.filter_by(question_id = question.id).first()
+            result.answer = Answer
+            result.response = None
+            result.user_marks = None
             db.session.commit()
-        result = current_user.long_answer.filter_by(question_id = question.id).first()
-        result.answer = Answer
-        result.response = None
-        result.mark = None
-        db.session.commit()
 
         return redirect(url_for('feedback'))
 

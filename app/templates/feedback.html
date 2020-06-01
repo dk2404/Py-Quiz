@@ -17,9 +17,30 @@
                 You got a score of {{score}} out of {{question_num}} 
                 your feedback by admin was : {{Feedback}}
             </h3>
-        {% else %}
+        {%else %}
             <h3>Your results: </br>
                 you have not done the quiz yet!
+            </h3>
+        {% endif %}
+
+        {% if markflag %}
+            <!-- Score -->
+            <h3>your long answer questions have been reviewed: </br>
+                you got a score of {{mark}} out of {{question_mark}} 
+            </h3>
+            <!-- present all the long answer responses -->
+            {%for answer in long_responses%}
+                <div class="long-response">
+                {% if answer.user_marks %}
+                    <br>
+                    
+                    <h3> you got <mark><b>{{answer.user_marks}}</b></mark> in intermediate level quiz! </h3>
+                {% endif %}
+                </div>
+            {% endfor %}
+        {%else %}
+            <h3>Your results: </br>
+                you have not done intermediate quiz yet!
             </h3>
         {% endif %}
 
