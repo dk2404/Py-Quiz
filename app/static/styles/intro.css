@@ -10,8 +10,9 @@
         font-family: Arial, Helvetica, sans-serif;
       }
       .p {
-          margin-right: 400px;
-          margin-left: 400px;
+          margin-right: auto;
+          margin-left: auto;
+          display:block;
           text-align: justify;
         }
       
@@ -187,6 +188,7 @@
         }
         .img_container1 {
           float:right;
+          margin-left: auto;
           margin-top: 100px;
           width:200px;
           height: 200px;
@@ -263,4 +265,17 @@
             background-color: rgb(153, 149, 149);
             width: auto;
             height: 20px;
+        }
+
+        .button {
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
         }

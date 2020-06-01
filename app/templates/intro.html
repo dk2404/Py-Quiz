@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-
 {% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intro.css') }}">
+</head>
+
 <body>
 <div class="content">
   
@@ -14,15 +17,14 @@
         <div class="p">
             The Python online test assesses candidates' knowledge of programming in the Python language and understanding of its native data structures.
             It's an ideal test for pre-employment screening. A good Python developer needs to be able not only to solve problems using Python as the programming language but also be familiar with Python native data structures and language constructs.
-            This online test requires candidates to solve coding problems in Python as well as to find and fix bugs in a Python program.
-            
+            This online test requires candidates to solve coding problems in Python as well as to find and fix bugs in a Python program. 
         </div>
         
 </div>
         <br>
         <br>
         <!-- Here we are linking the top navigation bar to the related data-->
-        <h2 id="x1">Recommended Job Roles</h2>
+        <h2>Recommended Job Roles</h2>
         <div class="content">
             <ul>
                 <li>Back end Developer</li>
@@ -114,8 +116,6 @@
       <footer class="foo">
         &copy; 2020 DK & SS,All rights reserved;
     </footer>
-
-
 </body>
 </html>
 {% endblock %}
