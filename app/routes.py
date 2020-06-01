@@ -12,18 +12,7 @@ from sqlalchemy import func
 def index():
     users = User.query.all()
     
-    posts = [
-        {
-            'author': {'username': 'Sonali'},
-            'body': 'Currently socially iselated'
-        },
-        {
-            'author': {'username': 'Dilip'},
-            'body': 'Six seasons and a Netflix special'
-        }
-    ]
     return render_template('intro.html', title = 'Home', 
-                            posts = posts, 
                             Question=Question, 
                             feedback=feedback, 
                             Result=Result )
@@ -106,32 +95,30 @@ def add_question():
 def sonali():
     return render_template('sonali.html',title ="dilip")
 
-# @app.route('/test')
-# def test():
-#     return render_template('test.html',title="test")
 
-@app.route('/feedback')
+@app.route('/feedback', methods=['GET', 'POST'])
 def feedback():
-
-    if request.method == "POST":
-        feedbackrequest = request.form["Feedback"]
-        if not bool(feedback.query.filter_by(user_id = current_user.id).first()):
-            Feedback = feedback(user = current_user)
-            db.session.add(Feedback)
-            db.session.commit()
-        current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback = feedbackrequest
-        db.session.commit()
-    # variables to store the short answer question mark, sum of the total short question marks 
-    # and percentage for the mark
+    questions = Question.query.all()
+    Feedback = current_user.Feedback.filter_by(user_id = current_user.id).first().Feedback 
     score = ""
     question_sum = ""
-    percentage = ""
-    # calculate the above variables below if result can be found for the current user
+    question_num = 0
+
+    # to count number of questions
+    for question in questions:
+        question_num+=1
+
+   #MCQ quiz result calculation
     if bool(Result.query.filter_by(user_id = current_user.id).first()):
         question_sum = db.session.query(func.sum(Question.question_marks)).scalar()
         score = current_user.outcome[0].result
 
-    return render_template('feedback.html', title='Account', score = score, sum = question_sum, percentage = percentage )
+    #feedback= feedback.query.filter_by(user_id = current_user.id)
+    
+            #feedback = Feedback(user = current_user)
+  
+
+    return render_template('feedback.html', title='feedback',Feedback=Feedback, score = score,question_num=question_num, sum = question_sum )
 
 
 @app.route('/test')
@@ -157,13 +144,11 @@ def test():
                             Result=Result,
                             MCQ=MCQ )
 
-
-# quiz route for quiz.html the page where users get to play the quiz
 @app.route('/exam', methods=['GET', 'POST'])
 @login_required
 def exam():
     
-    questions = Question.query.all()
+    questions = Question.query.filter_by(text_question=False)
     mcq=MCQ.query.all()
     score = 0 
 
@@ -187,3 +172,28 @@ def exam():
         return redirect(url_for('feedback'))
 
     return render_template('exam.html', title='Quiz',questions=questions,mcq=mcq)
+
+
+# quiz route for quiz.html the page where users get to play the quiz
+@app.route('/exam2', methods=['GET', 'POST'])
+@login_required
+def exam2():
+    
+    questions = Question.query.filter_by(text_question=True)
+
+    for question in questions:
+        strqid = str(question.id)
+        Answer = request.form[strqid]
+        if not bool(Answers.query.filter_by(user_id = current_user.id, question_id = question.id).first()):
+            answer = Answers(answer_user = current_user, answers = question)
+            db.session.add(long_answer)
+            db.session.commit()
+        result = current_user.long_answer.filter_by(question_id = question.id).first()
+        result.answer = Answer
+        result.response = None
+        result.mark = None
+        db.session.commit()
+
+        return redirect(url_for('feedback'))
+
+    return render_template('exam2.html', title='Exam2',questions=questions)

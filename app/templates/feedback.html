@@ -14,7 +14,8 @@
         <!-- Display the player's result if it exists -->
         {%if score%}
             <h3>the player's result: </br>
-                You got a score of {{score}} out of {{sum}} possible marks ({{percentage}}%) for the short answers
+                You got a score of {{score}} out of {{question_num}} 
+                your feedback by admin was : {{Feedback}}
             </h3>
         {% else %}
             <h3>Your results: </br>
